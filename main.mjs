@@ -87,7 +87,7 @@ function transpose(array) {
 
 console.log(_.every([1, 2, 3]), 12321);
 
-for (row of tempState) {
+for (let row of tempState) {
   console.log(_.chunk(row, 2));
 }
 
@@ -98,22 +98,24 @@ for (row of tempState) {
 
 function areBlocksGood(rows) {
   let i = 0;
-  const partialBlocks = _.chain(rows)
+  const flattenedRowChunks = _.chain(rows)
     .map(row => _.chunk(row, blockSize))
-    .flatten()
-    .partition(() => i++ % blockSize === 0)
     .flatten()
     .value();
 
+  const nthPartitionedRowChunks = multiSplit(flattenedRowChunks, blockSize)
+  const flattened = _.flatten(nthPartitionedRowChunks)
+
   const blocks = [];
-  while (!_(partialBlocks).isEmpty()) {
+  while (!_(flattened).isEmpty()) {
     blocks.push(
-      _(partialBlocks)
+      _(flattened)
         .pullAt(_.range(0, blockSize))
         .flatten()
         .value()
     );
   }
+
   return blocks;
 }
 
@@ -127,3 +129,18 @@ for (let ss of areBlocksGood(tempState)) {
 
 const asd = _.every(areBlocksGood(tempState), isComplete);
 console.log(asd);
+
+
+function multiSplit(arr, n) {
+  const arrays = Array(n).fill().map(() => Array())
+
+  for (var i = 0; i < n; i++) {
+    for (var index = i; index < arr.length; index+=n) {
+      arrays[i].push(arr[index]);
+    }
+  }
+
+  console.log('rrewrew', arrays)
+
+  return arrays;
+}
