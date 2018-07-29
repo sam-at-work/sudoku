@@ -26,6 +26,20 @@ const completeErrorState = [
   [2,1,4,3,]
 ];
 
+// prettier-ignore
+const completeErrorState9x9 = [
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+  [1,2,3,4,5,6,7,8,9,],
+
+];
+
 function multiSplit(arr, n) {
   const arrays = Array(n)
     .fill()
@@ -98,3 +112,4 @@ function check(state, blockSize, label) {
 check(incompleteState, blockSize, "incompleteState");
 check(completePerfectState, blockSize, "completePerfectState");
 check(completeErrorState, blockSize, "completeErrorState");
+check(completeErrorState9x9, 3, "completeErrorState 9x9");
